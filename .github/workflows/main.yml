@@ -1,0 +1,25 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Build docker image
+        run: mvn spring-boot:build-image -Dmaven.test.skip -Dspring-boot.build-image.imageName=zobelle/dhbw-vorlesungsplan-backend
+        
+      - name: Show docker images
+        run: docker image ls
+        
+      - name: Save docker image to tar file
+        run: docker save -o zobelle_dhbw-vorlesungsplan-backend.tar zobelle/dhbw-vorlesungsplan-backend
+        
+      - name: Show directory
+        run: ls -lisa
