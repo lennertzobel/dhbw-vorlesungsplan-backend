@@ -23,3 +23,12 @@ jobs:
         
       - name: Show directory
         run: ls -lisa
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "zobelle_dhbw-vorlesungsplan-backend.tar"
+          target: "dhbw-vorlesungsplan-backend"
