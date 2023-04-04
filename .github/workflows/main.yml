@@ -30,9 +30,9 @@ jobs:
       - name: Load docker image and restart application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd dhbw-vorlesungsplan-backend
             docker load -i zobelle_dhbw-vorlesungsplan-backend.tar
