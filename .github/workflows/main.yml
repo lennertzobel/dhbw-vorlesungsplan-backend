@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -11,10 +12,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-        
+
       - name: Build docker image
         run: mvn spring-boot:build-image -Dmaven.test.skip -Dspring-boot.build-image.imageName=zobelle/dhbw-vorlesungsplan-backend
-        
+
       - name: Save docker image to tar file
         run: docker save -o zobelle_dhbw-vorlesungsplan-backend.tar zobelle/dhbw-vorlesungsplan-backend
 
@@ -26,7 +27,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           source: "zobelle_dhbw-vorlesungsplan-backend.tar"
           target: "dhbw-vorlesungsplan-backend"
-          
+
       - name: Load docker image and restart application
         uses: appleboy/ssh-action@master
         with:
